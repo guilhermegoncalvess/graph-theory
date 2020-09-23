@@ -8,6 +8,7 @@ typedef struct graph {
     int* degreeSequence;
 } Graph;
 
+// Question 01.a)
 int **allocateMatrixAdj(int r, int c, int value)
 {
   int i, j;
@@ -22,6 +23,7 @@ int **allocateMatrixAdj(int r, int c, int value)
   return m;
 }
 
+// Question 01.a)
 Graph *createGraph( int V ) {
   Graph* G = ( Graph* )malloc( sizeof( Graph ));
   G->V = V;
@@ -32,6 +34,7 @@ Graph *createGraph( int V ) {
   return G;
 }
 
+// Question 01.a)
 void insertEdge( Graph* G, int v, int w )
 {
   if (v != w && G->adj[v][w] == 0 )
@@ -52,6 +55,7 @@ void removeEdge( Graph*G, int v, int w )
   }
 }
 
+// Question 01.b)
 void showGraph( Graph* G, char name)
 {
   int v, w;
@@ -68,6 +72,7 @@ void showGraph( Graph* G, char name)
   printf("\n");
 }
 
+// Question 01.d)
 int vertexDegree( Graph* G, int vertex )
 {
   int w, sum=0;
@@ -81,6 +86,7 @@ int vertexDegree( Graph* G, int vertex )
   return sum;
 }
 
+// Question 01.c)
 int isAdjacent( Graph* G, int firstVertex, int secondVertex )
 {
   return G->adj[firstVertex][secondVertex] == 1 ? 1 : 0;
@@ -115,6 +121,7 @@ void insertionSort(int* arr, int length){
   }
 }
 
+// Question 01.e)
 void degreeSequence( Graph* G )
 {
   int i;
@@ -138,6 +145,7 @@ void showDegreeSequence( int* sequence, int length, char name )
 
 }
 
+// Question 01.f)
 void verifyDegreeSequence( Graph* G, Graph* H )
 {
   int i;
@@ -166,9 +174,10 @@ void verifyDegreeSequence( Graph* G, Graph* H )
 
 }
 
+// Question 01.g)
 int main()
 {
-  int nVertex, nEdgeG, nEdgeH, firstVertex, sencondVertex, i=0;
+  int nVertex, nEdgeG, nEdgeH, firstVertex, secondVertex, i=0;
 
   scanf("%d%d", &nVertex, &nEdgeG);
   Graph* G = createGraph( nVertex );
@@ -176,12 +185,12 @@ int main()
   scanf("%d%d", &nVertex, &nEdgeH);
   Graph* H = createGraph( nVertex );
 
-  while (scanf("%d%d", &firstVertex, &sencondVertex) != EOF)
+  while (scanf("%d%d", &firstVertex, &secondVertex) != EOF)
   {
       if( i < nEdgeG )
-          insertEdge( G, firstVertex, sencondVertex );
+          insertEdge( G, firstVertex, secondVertex );
       else
-          insertEdge( H, firstVertex, sencondVertex );
+          insertEdge( H, firstVertex, secondVertex );
       i++;
   }
 
@@ -192,8 +201,8 @@ int main()
   verifyDegreeSequence(G, H);
   printf("\n\n");
 
-  int grau = vertexDegree( G, 0 );
-  printf("1- %d", grau);
+  int degree = vertexDegree( G, 0 );
+  printf("1- %d", degree);
   printf("\n\n");
 
   int adjacent = isAdjacent(G, 0, 1);
@@ -202,8 +211,8 @@ int main()
 
   removeEdge( G, 0, 1);
 
-  grau = vertexDegree( G, 0 );
-  printf("3- %d", grau);
+  degree = vertexDegree( G, 0 );
+  printf("3- %d", degree);
   printf("\n\n");
 
   adjacent = isAdjacent(G, 0, 1);
