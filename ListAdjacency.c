@@ -1,155 +1,155 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct vertice {
-  int no;
-  struct vertice *prox;
-} Vertice;
+typedef struct vertex {
+  int node;
+  struct vertex *next;
+} Vertex;
 
-typedef struct grafo
+typedef struct graph
 {
   int V;
   int E;
-  Vertice *adj;
-} Grafo;
+  Vertex *adj;
+} Graph;
 
-Grafo* criaGrafo( int V )
+Graph* createGraph( int V )
 {
-  Grafo *G = ( Grafo* )malloc( sizeof( Grafo ));
+  Graph *G = ( Graph* )malloc( sizeof( Graph ));
   G->V = V;
   G->E = 0;
-  G->adj = ( Vertice* )calloc( V, sizeof( Vertice ));
+  G->adj = ( Vertex* )calloc( V, sizeof( Vertex ));
 
   return G;
 }
 
-Vertice* novoVertice( int x )
+Vertex* newVertex( int x )
 {
-  Vertice* novo = ( Vertice* )malloc( sizeof( Vertice ));
+  Vertex* new = ( Vertex* )malloc( sizeof( Vertex ));
 
-  if( novo == NULL )
+  if( new == NULL )
   {
     printf("ERRO \n");
     exit(1);
   }
 
-  novo->no = x;
-  novo->prox = NULL;
+  new->node = x;
+  new->next = NULL;
 
-  return novo;
+  return new;
 }
 
-void insereAresta( Grafo* G, int v, int w )
+void insertEdge( Graph* G, int v, int w )
 {
   if( v != w )
   {
-    Vertice *p = G->adj[v].prox;
+    Vertex *p = G->adj[v].next;
 
     while ( p != NULL )
     {
-        if( p->no == w )
+        if( p->node == w )
             break;
-        p = p->prox;
+        p = p->next;
     }
     if( p == NULL )
     {
-        Vertice* novo = novoVertice( w );
-        novo->prox = G->adj[v].prox;
-        G->adj[v].prox = novo;
+        Vertex* new = newVertex( w );
+        new->next = G->adj[v].next;
+        G->adj[v].next = new;
         G->E++;
     }
-    p = G->adj[w].prox;
+    p = G->adj[w].next;
     while ( p != NULL )
     {
-        if( p->no == v )
+        if( p->node == v )
             break;
-        p = p->prox;
+        p = p->next;
     }
     if( p == NULL )
     {
-        Vertice* novo = novoVertice( v );
-        novo->prox = G->adj[w].prox;
-        G->adj[w].prox = novo;
+        Vertex* new = newVertex( v );
+        new->next = G->adj[w].next;
+        G->adj[w].next = new;
         G->E++;
     }
   }
 }
 
-void removeAresta( Grafo* G, int v, int w )
+void removeEdge( Graph* G, int v, int w )
 {
-  if( G->adj[v].prox != NULL )
+  if( G->adj[v].next != NULL )
   {
-    Vertice* aux = G->adj[v].prox;
-    Vertice* preaux = &(G->adj[v]);
+    Vertex* aux = G->adj[v].next;
+    Vertex* preaux = &(G->adj[v]);
 
     while ( aux != NULL)
     {
-        if( aux->no == w )
+        if( aux->node == w )
             break;
         preaux = aux;
-        aux = aux->prox;
+        aux = aux->next;
     }
     if ( aux != NULL)
     {
         G->E--;
-        preaux->prox = aux->prox;
+        preaux->next = aux->next;
         free(aux);
     }
   }
-  if ( G->adj[w].prox != NULL )
+  if ( G->adj[w].next != NULL )
   {
-    Vertice* aux = G->adj[w].prox;
-    Vertice* preaux = &(G->adj[w]);
+    Vertex* aux = G->adj[w].next;
+    Vertex* preaux = &(G->adj[w]);
 
     while ( aux != NULL)
     {
-        if( aux->no == v )
+        if( aux->node == v )
             break;
         preaux = aux;
-        aux = aux->prox;
+        aux = aux->next;
     }
     if ( aux != NULL)
     {
         G->E--;
-        preaux->prox = aux->prox;
+        preaux->next = aux->next;
         free(aux);
     }
   }
 }
 
-void imprimeGrafo( Grafo* G )
+void imprimeGraph( Graph* G )
 {
   int v;
-  Vertice* w;
+  Vertex* w;
 
   for( v = 0; v < G->V; v++ )
   {
     printf( "%2d:", v );
-    w = G->adj[v].prox;
+    w = G->adj[v].next;
 
     while ( w != NULL )
     {
-        printf( "%d", w->no );
-        w = w->prox;
+        printf( "%d", w->node );
+        w = w->next;
     }
     printf("\n");
   }
 }
 int main()
 {
-  int nVertices, vertice, nArestas, aresta, result, i, rem;
+  int nVertex, vertex, nEdge, Edge, result, i, rem;
 
-  scanf( "%d%d", &nVertices, &nArestas );
+  scanf( "%d%d", &nVertex, &nEdge );
 
-  Grafo* G = criaGrafo( nVertices );
+  Graph* G = createGraph( nVertex );
 
-  for ( i = 0; i < nArestas; i++ )
+  for ( i = 0; i < nEdge; i++ )
   {
-    scanf( "%d%d", &vertice, &aresta );
-    insereAresta( G, vertice, aresta );
+    scanf( "%d%d", &vertex, &Edge );
+    insertEdge( G, vertex, Edge );
   }
 
-  imprimeGrafo( G );
+  showGraph( G );
 
   return 0;
 }
