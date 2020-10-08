@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "./LibraryMatrixAdjacency/MatrixAdjacency.h"
+#include "../Libraries/MatrixAdjacency.h"
 // Question 01.g)
 int main()
 {

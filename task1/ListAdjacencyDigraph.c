@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "./LibraryDigraph/Digraph.h"
+#include "../Libraries/Digraph.h"
 
 
 // Question 02.g)
