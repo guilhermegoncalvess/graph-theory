@@ -22,18 +22,18 @@ Graph* createGraph( int V )
 
 Vertex* newVertex( int x )
 {
-  Vertex* new = ( Vertex* )malloc( sizeof( Vertex ));
+  Vertex* newNode = ( Vertex* )malloc( sizeof( Vertex ));
 
-  if( new == NULL )
+  if( newNode == NULL )
   {
     printf("ERRO \n");
     exit(1);
   }
 
-  new->node = x;
-  new->next = NULL;
+  newNode->node = x;
+  newNode->next = NULL;
 
-  return new;
+  return newNode;
 }
 
 void insertEdge( Graph* G, int v, int w )
@@ -50,9 +50,9 @@ void insertEdge( Graph* G, int v, int w )
     }
     if( p == NULL )
     {
-        Vertex* new = newVertex( w );
-        new->next = G->adj[v].next;
-        G->adj[v].next = new;
+        Vertex* newNode = newVertex( w );
+        newNode->next = G->adj[v].next;
+        G->adj[v].next = newNode;
         G->E++;
     }
     p = G->adj[w].next;
@@ -64,9 +64,9 @@ void insertEdge( Graph* G, int v, int w )
     }
     if( p == NULL )
     {
-        Vertex* new = newVertex( v );
-        new->next = G->adj[w].next;
-        G->adj[w].next = new;
+        Vertex* newNode = newVertex( v );
+        newNode->next = G->adj[w].next;
+        G->adj[w].next = newNode;
         G->E++;
     }
   }

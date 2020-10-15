@@ -108,7 +108,7 @@ setEdge spanningTree(Graph* G)
   return setEdge;
 }
 
-setEdge bsf(Graph* G)
+setEdge bfs(Graph* G)
 {
   int i, v, w;
   Head *notExplored = ( Head* )malloc( 1*sizeof( Head ));
